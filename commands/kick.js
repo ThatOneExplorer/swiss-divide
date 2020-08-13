@@ -3,11 +3,12 @@ name: 'kick',
 description: 'kicks the user',
 
 execute (message) {
-   
+  const db = require('quick.db')
+  const { prefix } = require('./config.json');
     const config = require("./config.json");
     const Discord = require('discord.js');
-    const args = (message.content.slice(config.prefix.length).trim().split(/ +/g))
-   
+    const args = (message.content.slice(prefix.length).trim().split(/ +/g))
+    let kicks = db.get(`kicks_${message.guild.id}_${member.id}`)
    
     let RolePermsEmbed = new Discord.MessageEmbed()
     .setColor('RED')
@@ -81,8 +82,40 @@ execute (message) {
     if(!reason) 
     return message.channel.send(noreasonembed)
 
+
+
+
     console.log(`kick command has been used in ${message.guild.name} by ${message.author.username}`);
 
+    if(mutes === null){
+      db.set(`kicks_${message.guild.id}_${member.id}`, 1 )
+    let kickDMembed = new Discord.MessageEmbed()
+    .setColor('RED')
+    .setTitle(`You have been Kicked from ${message.guild.name}`)
+    .addFields( 
+      { name: 'Moderator ', value: `${message.author.username}`, inline: true },       { name: 'Kicked for', value: `${reason}`, inline: true },
+
+    )
+    
+
+ member.user.send(kickDMembed)
+
+ let kicksuccesEmbed = new Discord.MessageEmbed()
+ .setThumbnail()
+ .setColor('GREEN')
+ .setTitle(`Succesfully kicked ${member.user.username}`)
+ .addFields(
+   { name: 'Moderator ', value: `${message.author.username}`, inline: true },  { name: 'Kicked for', value: `${reason}`, inline: true },
+  
+ )
+
+
+message.channel.send(kicksuccesEmbed)
+     member.kick(reason)
+  
+  }
+  if(mutes !== null){
+    db.add(`kicks_${message.guild.id}_${member.id}`, 1)
 
     let kickDMembed = new Discord.MessageEmbed()
     .setColor('RED')
@@ -91,7 +124,7 @@ execute (message) {
       { name: 'Moderator ', value: `${message.author.username}`, inline: true },       { name: 'Kicked for', value: `${reason}`, inline: true },
 
     )
-
+    
 
  member.user.send(kickDMembed)
 
@@ -112,4 +145,4 @@ message.channel.send(kicksuccesEmbed)
 
 }
 
-
+}

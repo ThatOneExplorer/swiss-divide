@@ -2,6 +2,8 @@ module.exports = {
 	name: 'invite',
 	description: 'The bots invite link',
 	execute(message) { 
+        const db = require('quick.db')
+        const { prefix } = require('./config.json');
         const config = require("./config.json");
         const Discord = require('discord.js');
 

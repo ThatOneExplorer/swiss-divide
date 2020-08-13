@@ -2,14 +2,15 @@ module.exports = {
 	name: 'mute',
 	description: 'Mutes the user',
 	execute(message) {
-
+    const db = require('quick.db')
+    const { prefix } = require('./config.json');
         const config = require("./config.json");
         const Discord = require('discord.js');
-        const args = (message.content.slice(config.prefix.length).trim().split(/ +/g))
+        const args = (message.content.slice(prefix.length).trim().split(/ +/g))
         const ms = require("ms");
-
+        let member = message.mentions.members.first();
         const muterole = message.guild.roles.cache.find(role => role.name === 'Muted');
-           
+        let mutes = db.get(`mutes_${message.guild.id}_${member.id}`, 1)
        
         let nomuteroleembed = new Discord.MessageEmbed()
         .setColor('RED')
@@ -46,7 +47,7 @@ module.exports = {
             )
         
 
-            let member = message.mentions.members.first();
+            
         if (!member)
         return message.channel.send (mutevalidmemberembed)
         let userismodembed = new Discord.MessageEmbed()
@@ -85,6 +86,10 @@ module.exports = {
         return message.channel.send (nomutereasonembed)
         
 
+
+        if(mutes === null){
+          db.set(`mutes_${message.guild.id}_${member.id}`, 1 )
+
 member.roles.add(muterole);
          
     
@@ -107,7 +112,12 @@ member.roles.add(muterole);
           { name:  `Moderator`, value:`${message.author.username}`, inline: true, },      { name:  `Reason`, value:`${reason}`, inline: true, },
         
          )
-        member.user.send(MuteDMembed)   
+         try {
+          member.send(MuteDMembed)
+        } catch (error) {
+          console.error(error);
+          message.reply(`${error}`);
+        }
 
 
         setTimeout(function(){
@@ -116,9 +126,62 @@ member.roles.add(muterole);
           member.roles.remove(muterole);
          let unmutedembed = new Discord.MessageEmbed()
          .setTitle(`You have been unmuted in ${message.guild.name}, you may now talk`)
-          member.user.send(unmutedembed)
+         try {
+          member.send(unmutedembed)
+        } catch (error) {
+          console.error(error);
+          message.reply(`${error}`);
+        }
       }, ms(time));
+    }
+    if(mutes !== null){
+      db.add(`mutes_${message.guild.id}_${member.id}`, 1)
+      
+      member.roles.add(muterole);
+         
+    
+         
+        
+      let muteembed = new Discord.MessageEmbed()
+      .setColor('GREEN')
+      .setTitle(`Succesfully muted ${member.user.username} for ${time}`)
+      .addFields(
+        { name:  `Moderator`, value:` ${message.author.username} `, inline: true, },    { name:  `Reason`, value:`${reason}` },
+      
+       )
+       
+       message.channel.send(muteembed)
+      
+      let MuteDMembed = new Discord.MessageEmbed()
+      .setColor('RED')
+      .setTitle(`You have been muted in ${message.guild.name} for ${time}`)
+      .addFields(
+        { name:  `Moderator`, value:`${message.author.username}`, inline: true, },      { name:  `Reason`, value:`${reason}`, inline: true, },
+      
+       )
+       try {
+        member.send(MuteDMembed)
+      } catch (error) {
+        console.error(error);
+        message.reply(`${error}`);
+      }
 
+
+      setTimeout(function(){
+              
+
+        member.roles.remove(muterole);
+       let unmutedembed = new Discord.MessageEmbed()
+       .setTitle(`You have been unmuted in ${message.guild.name}, you may now talk`)
+       try {
+        member.send(unmutedembed)
+      } catch (error) {
+        console.error(error);
+        message.reply(`${error}`);
+      }
+    }, ms(time));
+
+  }
 
 
 

@@ -2,10 +2,11 @@ module.exports = {
 	name: '8ball',
 	description: 'The bots invite link',
 	execute(message) { 
+        const db = require('quick.db')
+        const { prefix } = require('./config.json');
+        const args = (message.content.slice(prefix.length).trim().split(/ +/g))
         const config = require("./config.json");
         const Discord = require('discord.js');
-        const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
-        const prefix = (config.prefix)
         const ballmessage = args.slice(1).join(' ');
         const answers = [
         

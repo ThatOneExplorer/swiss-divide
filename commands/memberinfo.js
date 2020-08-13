@@ -2,10 +2,12 @@ module.exports = {
 	name: 'userinfo',
 	description: 'displays a user info message',
 	execute(message) { 
+        const db = require('quick.db')
+        const { prefix } = require('./config.json');
         const config = require("./config.json");
         const Discord = require('discord.js');
         const moment = require('moment')
-        const args = (message.content.slice(config.prefix.length).trim().split(/ +/g))
+        const args = (message.content.slice(prefix.length).trim().split(/ +/g))
         let user = message.mentions.users.first() || message.author;
         if (!user.roles){
             user.roles = [];

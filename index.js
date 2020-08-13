@@ -1,16 +1,10 @@
-const Discord = require('discord.js');
-const client = new Discord.Client();
 const fs = require('fs');
+const Discord = require('discord.js');
+const { token } = require('./token.json');
+const { prefix } = require('./commands/config.json');
 const chalk = require('chalk');
-const Canvas = require('canvas');
-
-const { prefix } = require('./commands/config.json')
-const {token} = require('./token.json')
-
-
 const { yellowBright, redBright, blueBright, greenBright } = require('chalk');
-
-
+const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -19,9 +13,6 @@ for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
 }
-
-
-client.login(token);
 
 console.log
     ('Starting bot')
@@ -37,60 +28,27 @@ client.on("guildCreate", guild => {
     console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
 });  
 
+
+client.on("guildDelete", guild => {
+  
+    console.log(`Left guild: ${guild.name} (id: ${guild.id}).`);
+});  
+
+
 client.on('message', message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-    
-
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
 	const command = args.shift().toLowerCase();
-{
 
-    if (!client.commands.has(command)) return;
+	if (!client.commands.has(command)) return;
 
-    try {
-        client.commands.get(command).execute(message, args);
-    } catch (error) {
-        console.error(error);
-        message.reply(`there was an error trying to execute that command! ${error}`);
-    }
-}
-
+	try {
+		client.commands.get(command).execute(message, args);
+	} catch (error) {
+		console.error(error);
+		message.reply('there was an error trying to execute that command!');
+	}
 });
 
-
-
-client.on("message", async message => {
-    const config = require("./commands/config.json");
-
-    const args = (message.content.slice(config.prefix.length).trim().split(/ +/g))
- 
-  const {prefix} = require('./commands/config.json')
-    let reason = args.slice(1).join(' ');
-  
-    const trim = (str, max) => ((str.length > max) ? `${str.slice(0, max - 3)}...` : str);
-  
-  
-  
-    const Discord = require('discord.js');
-  
-  
-    if(message.author.bot) return;
-  
-    
-  
-    if(!message.content.startsWith(config.prefix)) return;
-    
-    
-    
-    const command = args.shift().toLowerCase();
-
-if(command === "ping") {
-  
-    const m = await message.channel.send("Getting the ping");
-    m.edit(`Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`);
-  }
-
-
-
-});
+client.login(token);
