@@ -1,16 +1,18 @@
+
+
 module.exports = {
 	name: 'mute',
 	description: 'Mutes the user',
-	execute(message) {
+	execute(message, prefix, client) {
     const db = require('quick.db')
-    const { prefix } = require('./config.json');
-        const config = require("./config.json");
+      const fs = require("fs")
         const Discord = require('discord.js');
         const args = (message.content.slice(prefix.length).trim().split(/ +/g))
         const ms = require("ms");
+  
         let member = message.mentions.members.first();
         const muterole = message.guild.roles.cache.find(role => role.name === 'Muted');
-        let mutes = db.get(`mutes_${message.guild.id}_${member.id}`, 1)
+        
        
         let nomuteroleembed = new Discord.MessageEmbed()
         .setColor('RED')
@@ -62,7 +64,7 @@ module.exports = {
 
         let time = args[2];
         let reason = args.slice(3).join(' ');
-        
+        let mutes = db.get(`mutes_${message.guild.id}_${member.user.id}`)
         let nomutereasonembed = new Discord.MessageEmbed()
         .setColor('RED')
         .setTitle(`${message.author.username} ERROR`)
@@ -88,12 +90,11 @@ module.exports = {
 
 
         if(mutes === null){
-          db.set(`mutes_${message.guild.id}_${member.id}`, 1 )
+          db.set(`mutes_${message.guild.id}_${member.user.id}`, 1 )
 
 member.roles.add(muterole);
          
-    
-         
+
         
         let muteembed = new Discord.MessageEmbed()
         .setColor('GREEN')
@@ -135,12 +136,12 @@ member.roles.add(muterole);
       }, ms(time));
     }
     if(mutes !== null){
-      db.add(`mutes_${message.guild.id}_${member.id}`, 1)
+      db.add(`mutes_${message.guild.id}_${member.user.id}`, 1)
       
       member.roles.add(muterole);
          
     
-         
+          
         
       let muteembed = new Discord.MessageEmbed()
       .setColor('GREEN')
@@ -180,8 +181,7 @@ member.roles.add(muterole);
         message.reply(`${error}`);
       }
     }, ms(time));
-
-  }
+    }
 
 
 

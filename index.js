@@ -1,7 +1,7 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const { token } = require('./token.json');
 const { prefix } = require('./commands/config.json');
+const { token } = require('./token.json')
 const chalk = require('chalk');
 const { yellowBright, redBright, blueBright, greenBright } = require('chalk');
 const client = new Discord.Client();
@@ -22,18 +22,6 @@ console.log(blueBright('Connecting to Discord API'))
 client.once('ready', () => {
     console.log(greenBright(' Launched and Logged in'), ('as'), chalk.red(`${client.user.username}`), ('With'), chalk.green(`${client.users.cache.size} users, in ${client.channels.cache.size} channels of ${client.guilds.cache.size} guilds.`));
 });
-
-client.on("guildCreate", guild => {
-  
-    console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
-});  
-
-
-client.on("guildDelete", guild => {
-  
-    console.log(`Left guild: ${guild.name} (id: ${guild.id}).`);
-});  
-
 
 client.on('message', message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;

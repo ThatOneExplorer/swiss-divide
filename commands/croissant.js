@@ -5,9 +5,9 @@ module.exports = {
 	description: 'Bans the user',
 	execute(message) {
     const db = require('quick.db')
-    const { prefix } = require('./config.json');
+   
         const Discord = require('discord.js');
-        const args = (message.content.slice(prefix.length).trim().split(/ +/g))
+    
   const croissants = [
 
   "https://cdn.discordapp.com/attachments/730523779972726794/739959575222026424/JPEG_20200713_101759.jpg",

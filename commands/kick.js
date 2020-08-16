@@ -2,14 +2,14 @@ module.exports = {
 name: 'kick',
 description: 'kicks the user',
 
-execute (message) {
+execute (message, prefix) {
   const db = require('quick.db')
-  const { prefix } = require('./config.json');
-    const config = require("./config.json");
+  
     const Discord = require('discord.js');
     const args = (message.content.slice(prefix.length).trim().split(/ +/g))
-    let kicks = db.get(`kicks_${message.guild.id}_${member.id}`)
+    let member = message.mentions.members.first();
    
+      
     let RolePermsEmbed = new Discord.MessageEmbed()
     .setColor('RED')
     .setTitle(`${message.author.username}, Error`) 
@@ -36,7 +36,7 @@ execute (message) {
     .addFields(
       { name: 'Missing Bot Permissions', value:`I do not have permissions to ban this user` }
     )
-    let member = message.mentions.members.first();
+    
     if(!member)
     return message.channel.send(validMemberEmbed)
 
@@ -59,7 +59,7 @@ execute (message) {
 
    
     let reason = args.slice(2).join(' ');
-
+    let kicks = db.get(`kicks_${message.guild.id}_${member.user.id}`)
    
     
 
@@ -87,8 +87,8 @@ execute (message) {
 
     console.log(`kick command has been used in ${message.guild.name} by ${message.author.username}`);
 
-    if(mutes === null){
-      db.set(`kicks_${message.guild.id}_${member.id}`, 1 )
+    if(kicks === null){
+      db.set(`kicks_${message.guild.id}_${member.user.id}`, 1 )
     let kickDMembed = new Discord.MessageEmbed()
     .setColor('RED')
     .setTitle(`You have been Kicked from ${message.guild.name}`)
@@ -114,8 +114,8 @@ message.channel.send(kicksuccesEmbed)
      member.kick(reason)
   
   }
-  if(mutes !== null){
-    db.add(`kicks_${message.guild.id}_${member.id}`, 1)
+  if(kicks !== null){
+    db.add(`kicks_${message.guild.id}_${member.user.id}`, 1)
 
     let kickDMembed = new Discord.MessageEmbed()
     .setColor('RED')

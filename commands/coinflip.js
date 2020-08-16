@@ -3,9 +3,9 @@
 	name: 'coinflip',
 	description: 'heads or tails',
 	execute(message) {
-        const config = require("./config.json");
+        
         const Discord = require('discord.js');
-        const { prefix } = require('./config.json');
+  
  console.log(`Coin flip has been used by ${message.author.username}`)
   const answers = [
 
