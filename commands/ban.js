@@ -50,7 +50,7 @@ module.exports = {
         .setColor('RED')
         .addFields(
   
-          {name: `Unable to ban ${member.username}`, value: `That user is a mod or admin`,}
+          {name: `Unable to ban ${member.user.username}`, value: `That user is a mod or admin`,}
         )
   
         if(member.hasPermission("KICK_MEMBERS"))

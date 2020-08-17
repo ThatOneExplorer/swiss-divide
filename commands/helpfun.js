@@ -16,7 +16,8 @@ let helpfunembed = new Discord.MessageEmbed()
  { name: `${prefix}Coinflip`, value: `Heads or tails? **USAGE** ${prefix}Coinflip`,  },
  { name: `${prefix}Croissant`, value: `Would you like a croissant? **USAGE** ${prefix}Croissant`,  },
  { name: `${prefix}Slap`, value: `Now you can finally slap that person!!! **USAGE** ${prefix}Slap <user>`,  },
- { name: `${prefix}Vibecat`, value: `Vibe cat :sunglasses: **USAGE** ${prefix}Vibecat `  }
+ { name: `${prefix}Vibecat`, value: `Vibe cat :sunglasses: **USAGE** ${prefix}Vibecat `  },
+ { name: `${prefix}Beincake`, value: `Beincake **USAGE** ${prefix}Beincake`  }
 
 
 )

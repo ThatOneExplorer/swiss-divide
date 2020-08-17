@@ -3,7 +3,9 @@ const Discord = require('discord.js');
 const { prefix } = require('./commands/config.json');
 const { token } = require('./token.json')
 const chalk = require('chalk');
+
 const { yellowBright, redBright, blueBright, greenBright } = require('chalk');
+const path = require("path");
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
@@ -38,5 +40,8 @@ client.on('message', message => {
 		message.reply('there was an error trying to execute that command!');
 	}
 });
+
+
+require("./handlers/eventHandler")(client);
 
 client.login(token);

@@ -47,7 +47,7 @@ execute (message, prefix) {
     .setColor('RED')
     .addFields(
 
-      {name: `Unable to kick ${member.username}`, value: `That user is a mod or admin`,}
+      {name: `Unable to ban ${member.user.username}`, value: `That user is a mod or admin`,}
     )
 
     if(member.hasPermission("KICK_MEMBERS"))

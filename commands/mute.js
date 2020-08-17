@@ -3,7 +3,7 @@
 module.exports = {
 	name: 'mute',
 	description: 'Mutes the user',
-	execute(message, prefix, client) {
+async	execute(message, prefix, client) {
     const db = require('quick.db')
       const fs = require("fs")
         const Discord = require('discord.js');
@@ -14,15 +14,15 @@ module.exports = {
         const muterole = message.guild.roles.cache.find(role => role.name === 'Muted');
         
        
-        let nomuteroleembed = new Discord.MessageEmbed()
-        .setColor('RED')
-        .setTitle(`${message.author.username}, there was an error muting this person`)
-        .addFields(
-          {name: `**MUTE ROLE COULD NOT BE FOUND**`, value: `Create a role called Muted, (has to be spelled exactly like that), Deny it perms to send messages in each channel `}
-        )
-        if(!muterole)
-       
-       return message.channel.send(nomuteroleembed)
+      
+      let nomuteroleembed = new Discord.MessageEmbed()
+       .setTitle(`${message.author.username}, Error`)
+       .addFields(
+         {name: `No mute role found`, value: `Make a role called "Muted" and deny it perms to send messages in all channels`}
+       )
+        if(!muterole) 
+         return message.channel.send(nomuteroleembed)
+      
 
     
 
@@ -59,6 +59,7 @@ module.exports = {
   
           {name: `Unable to mute ${member.user.username}`, value: `That user is a mod or admin`,}
         )
+        
         if(member.hasPermission("KICK_MEMBERS"))
         return message.channel.send(userismodembed) 
 
