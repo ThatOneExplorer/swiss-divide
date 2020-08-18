@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "run": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,6 +15,8 @@
     "discord.js": "^12.2.0",
     "moment": "^2.27.0",
     "mongoose": "^5.9.27",
-    "ms": "^2.1.2"
+    "ms": "^2.1.2",
+    "quickdb": "^1.0.5",
+    "random-puppy": "^1.1.0"
   }
 }
