@@ -8,6 +8,7 @@ module.exports = {
         const random = subReddits[Math.floor(Math.random() * subReddits.length)];
           const img = await randomPuppy(random);
           const embed = new MessageEmbed()
+          .setColor('BLUE')
             .setImage(img)
             .setAuthor(message.author.tag, message.author.avatarURL())
             .setTitle(`From /r/${random}`)

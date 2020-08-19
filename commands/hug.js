@@ -9,6 +9,7 @@ module.exports = {
                 embed: {
                     description: `🤗 <@${message.author.id}> gave <@${mentioned.id}> a hug`,
                     timestamp: new Date(),
+                    colour: `blue`
                 }
             });
         } else {
