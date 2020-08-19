@@ -1,7 +1,7 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const { prefix } = require('./commands/config.json');
-const { token } = require('./token.json')
+const { token } = require("./token.json")
 const chalk = require('chalk');
 
 const { yellowBright, redBright, blueBright, greenBright } = require('chalk');
@@ -22,7 +22,17 @@ console.log('Loading modules')
 
 console.log(blueBright('Connecting to Discord API'))
 client.once('ready', () => {
-    console.log(greenBright(' Launched and Logged in'), ('as'), chalk.red(`${client.user.username}`), ('With'), chalk.green(`${client.users.cache.size} users, in ${client.channels.cache.size} channels of ${client.guilds.cache.size} guilds.`));
+
+
+	let guilds = client.guilds.cache.map(guild => "Guild name" +  "    " + "     " + guild.name + "    " + "     " + `Guild id` +  "    " + "     " + guild.id)
+    console.log(guilds)
+
+client.user.setActivity('Status page https://swissdivide.statuspage.io/')
+
+
+
+
+	console.log(greenBright(' Launched and Logged in'), ('as'), chalk.red(`${client.user.username}`), ('With'), chalk.green(`${client.users.cache.size} users, in ${client.channels.cache.size} channels of ${client.guilds.cache.size} guilds.`));
 });
 
 client.on('message', message => {
@@ -44,4 +54,4 @@ client.on('message', message => {
 
 require("./handlers/eventHandler")(client);
 
-client.login(process.env.CLIENT_TOKEN);
+client.login(token);

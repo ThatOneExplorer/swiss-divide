@@ -1,16 +1,15 @@
 const db = require('quick.db')
 const Discord = require('discord.js')
-
+const message = require('discord.js')
 module.exports = async (oldMessage, newMessage)  => {
 
     let logchannel = await db.get (`logchannel_${newMessage.guild.id}`)
-
+    
                     
     
-    if(!logchannel) {
+    if(!logchannel) 
      return;
-    }
-
+     if (newMessage.author.bot) return;
     
 
 

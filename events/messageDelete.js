@@ -3,15 +3,18 @@ const Discord = require('discord.js')
 
 module.exports = async message  => {
 
-    let logchannel = db.get (`logchannel_${message.guild.id}`, message.channel.id)
+    let logchannel = db.get (`logchannel_${message.guild.id}`)
 
 
 
-    if(!logchannel) {
+    if(!logchannel) 
      return;
-    }
+    
+     if(message === Discord.MessageEmbed) {
+        return;
+     }
 
-    const  LogChannel = await message.client.channels.fetch(logchannel);
+      
 
    let messagedeletedembed = new Discord.MessageEmbed()
    .setColor('ORANGE')
@@ -25,6 +28,7 @@ module.exports = async message  => {
      
    )
 .setTimestamp()
+const  LogChannel = await message.client.channels.fetch(logchannel);
    LogChannel.send(messagedeletedembed)
 
 
