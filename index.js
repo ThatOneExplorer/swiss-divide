@@ -44,4 +44,4 @@ client.on('message', message => {
 
 require("./handlers/eventHandler")(client);
 
-client.login(token);
+client.login(process.env.CLIENT_TOKEN);
