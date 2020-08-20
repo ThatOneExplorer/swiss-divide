@@ -105,23 +105,13 @@ module.exports = {
 
         )
         .setFooter(` You may appeal here ${appeallink}`)
+   
         if(appeallink === null){
      
-          try {
-           await member.user.send(banDMembedNOLINK)
-          } catch (error) {
-            console.error(error);
-            message.reply(`There was an error trying to execute that command! ${error} `);
-          }
+          member.user.send(banDMembedNOLINK).catch(e => {message.reply(`There was an error: ${e}`)})
         }
-  
-     if(appeallink !== null)   {
-          try {
-          await  member.user.send(banDMembedWITHLINK)
-          } catch (error) {
-            console.error(error);
-            message.reply(`There was an error trying to execute that command! ${error} `);
-          }
+        if(appeallink !== null)   {
+          member.user.send(banDMembedWITHLINK).catch(e => {message.reply(`There was an error: ${e}`)})
         }
       
      let bansuccessEmbed = new Discord.MessageEmbed()
@@ -161,21 +151,10 @@ module.exports = {
 
       if(appeallink === null){
      
-        try {
-         await member.user.send(banDMembedNOLINK)
-        } catch (error) {
-          console.error(error);
-          message.reply(`There was an error trying to execute that command! ${error} `);
-        }
+        member.user.send(banDMembedNOLINK).catch(e => {message.reply(`There was an error: ${e}`)})
       }
-
       if(appeallink !== null)   {
-        try {
-         await member.user.send(banDMembedWITHLINK)
-        } catch (error) {
-          console.error(error);
-          message.reply(`There was an error trying to execute that command! ${error} `);
-        }
+        member.user.send(banDMembedWITHLINK).catch(e => {message.reply(`There was an error: ${e}`)})
       }
      let bansuccessEmbed = new Discord.MessageEmbed()
      .setThumbnail()

@@ -16,6 +16,10 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
+
+
+
+
 console.log
     ('Starting bot')
 console.log('Loading modules')
@@ -37,7 +41,15 @@ client.user.setActivity('Status page https://swissdivide.statuspage.io/')
 
 client.on('message', message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
-
+   
+	let commandindmembed = new Discord.MessageEmbed()
+	.setColor('RED')
+	.setTitle(`${message.author.username}, ERROR`)
+	.addFields(
+		{name: `Command run in DMS`, value: `You cant use command in my DMS silly :P`}
+	)
+if(!message.guild)
+return message.channel.send(commandindmembed)
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
 	const command = args.shift().toLowerCase();
 

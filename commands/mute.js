@@ -3,7 +3,7 @@
 module.exports = {
 	name: 'mute',
 	description: 'Mutes the user',
-async	execute(message, prefix, client) {
+async	execute(message, prefix) {
     const db = require('quick.db')
       const fs = require("fs")
         const Discord = require('discord.js');
@@ -93,7 +93,7 @@ async	execute(message, prefix, client) {
         if(mutes === null){
           db.set(`mutes_${message.guild.id}_${member.user.id}`, 1 )
 
-member.roles.add(muterole);
+member.roles.add(muterole).catch(error => message.reply(`Sorry ${message.author}: ${error}`));
          
 
         
@@ -114,13 +114,10 @@ member.roles.add(muterole);
           { name:  `Moderator`, value:`${message.author.username}`, inline: true, },      { name:  `Reason`, value:`${reason}`, inline: true, },
         
          )
-         try {
-          member.send(MuteDMembed)
-        } catch (error) {
-          console.error(error);
-          message.reply(`${error}`);
-        }
-
+         
+                
+         member.user.send(MuteDMembed).catch(e => {message.reply(`There was an error: ${e}`)})
+        
 
         setTimeout(function(){
                 
@@ -128,18 +125,17 @@ member.roles.add(muterole);
           member.roles.remove(muterole);
          let unmutedembed = new Discord.MessageEmbed()
          .setTitle(`You have been unmuted in ${message.guild.name}, you may now talk`)
-         try {
-          member.send(unmutedembed)
-        } catch (error) {
-          console.error(error);
-          message.reply(`${error}`);
-        }
+     
+              
+         member.user.send(MuteDMembed).catch(e => {message.reply(`There was an error: ${e}`)})
+       
       }, ms(time));
-    }
+    
+        }
     if(mutes !== null){
       db.add(`mutes_${message.guild.id}_${member.user.id}`, 1)
       
-      member.roles.add(muterole);
+      member.roles.add(muterole).catch(error => message.reply(`Sorry ${message.author}: ${error}`));
          
     
           
@@ -161,12 +157,13 @@ member.roles.add(muterole);
         { name:  `Moderator`, value:`${message.author.username}`, inline: true, },      { name:  `Reason`, value:`${reason}`, inline: true, },
       
        )
-       try {
-        member.send(MuteDMembed)
-      } catch (error) {
-        console.error(error);
-        message.reply(`${error}`);
-      }
+      
+             
+
+ member.user.send(MuteDMembed).catch(e => {message.reply(`There was an error: ${e}`)})
+
+
+
 
 
       setTimeout(function(){
@@ -175,16 +172,16 @@ member.roles.add(muterole);
         member.roles.remove(muterole);
        let unmutedembed = new Discord.MessageEmbed()
        .setTitle(`You have been unmuted in ${message.guild.name}, you may now talk`)
-       try {
-        member.send(unmutedembed)
-      } catch (error) {
-        console.error(error);
-        message.reply(`${error}`);
-      }
+       
+       member.user.send(MuteDMembed).catch(e => {message.reply(`There was an error: ${e}`)})
+
+      
+ 
     }, ms(time));
-    }
+    
 
 
 
     }
+}
 }

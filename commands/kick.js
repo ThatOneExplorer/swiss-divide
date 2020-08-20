@@ -2,7 +2,7 @@ module.exports = {
 name: 'kick',
 description: 'kicks the user',
 
-execute (message, prefix) {
+async execute (message, prefix) {
   const db = require('quick.db')
   
     const Discord = require('discord.js');
@@ -97,9 +97,8 @@ execute (message, prefix) {
 
     )
     
-
- member.user.send(kickDMembed)
-
+    member.user.send(kickDMembed).catch(e => {message.reply(`There was an error: ${e}`)})
+    
  let kicksuccesEmbed = new Discord.MessageEmbed()
  .setThumbnail()
  .setColor('GREEN')
@@ -111,7 +110,7 @@ execute (message, prefix) {
 
 
 message.channel.send(kicksuccesEmbed)
-     member.kick(reason)
+  member.kick(reason).catch(error => message.channel.send(`Sorry ${message.author}, could kick because of: ${error}`));
   
   }
   if(kicks !== null){
@@ -125,8 +124,8 @@ message.channel.send(kicksuccesEmbed)
 
     )
     
-
- member.user.send(kickDMembed)
+    member.user.send(kickDMembed).catch(e => {message.reply(`There was an error: ${e}`)})
+    
 
  let kicksuccesEmbed = new Discord.MessageEmbed()
  .setThumbnail()
@@ -139,7 +138,7 @@ message.channel.send(kicksuccesEmbed)
 
 
 message.channel.send(kicksuccesEmbed)
-     member.kick(reason)
+     member.kick(reason).catch(error => message.reply(`Sorry ${message.author} I couldn't kick the user: ${error}`));
   
   }
 
