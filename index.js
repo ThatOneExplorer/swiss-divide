@@ -3,12 +3,12 @@ const Discord = require('discord.js');
 const { prefix } = require('./commands/config.json');
 const { token } = require("./token.json")
 const chalk = require('chalk');
-
+let db = require('quick.db')
 const { yellowBright, redBright, blueBright, greenBright } = require('chalk');
 const path = require("path");
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
-
+client.mutes = require('./mutes.json')
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
@@ -29,16 +29,18 @@ client.once('ready', () => {
 
 
 	let guilds = client.guilds.cache.map(guild => "Guild name" +  "    " + "     " + guild.name + "    " + "     " + `Guild id` +  "    " + "     " + guild.id)
-    console.log(guilds)
+	console.log(guilds)
+	
+
+
+
 
 client.user.setActivity('Status page https://swissdivide.statuspage.io/')
 
 
 
-
 	console.log(greenBright(' Launched and Logged in'), ('as'), chalk.red(`${client.user.username}`), ('With'), chalk.green(`${client.users.cache.size} users, in ${client.channels.cache.size} channels of ${client.guilds.cache.size} guilds.`));
 });
-
 client.on('message', message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
    
@@ -50,7 +52,7 @@ client.on('message', message => {
 	)
 if(!message.guild)
 return message.channel.send(commandindmembed)
-	const args = message.content.slice(prefix.length).trim().split(/ +/);
+const args = message.content.slice(prefix.length).trim().split(/ +/g);
 	const command = args.shift().toLowerCase();
 
 	if (!client.commands.has(command)) return;
@@ -65,5 +67,24 @@ return message.channel.send(commandindmembed)
 
 
 require("./handlers/eventHandler")(client);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 client.login(token);

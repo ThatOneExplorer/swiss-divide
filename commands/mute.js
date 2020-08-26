@@ -1,30 +1,29 @@
 
-
+const db = require('quick.db')
+const fs = require("fs")
+  const Discord = require('discord.js');
+  
+  const ms = require("ms");
 module.exports = {
 	name: 'mute',
 	description: 'Mutes the user',
 async	execute(message, prefix) {
-    const db = require('quick.db')
-      const fs = require("fs")
-        const Discord = require('discord.js');
-        const args = (message.content.slice(prefix.length).trim().split(/ +/g))
-        const ms = require("ms");
-  
-        let member = message.mentions.members.first();
-        const muterole = message.guild.roles.cache.find(role => role.name === 'Muted');
-        
-       
-      
+	const args = message.content.slice(prefix.length).trim().split(/ +/);
+  let muteroleid = await db.get(`muterole_${message.guild.id}`)
+  const muterolename = muteroleid.name
+  const muterole = message.guild.roles.cache.find(role => role.name === `${muterolename}`);
+             
       let nomuteroleembed = new Discord.MessageEmbed()
        .setTitle(`${message.author.username}, Error`)
        .addFields(
-         {name: `No mute role found`, value: `Make a role called "Muted" and deny it perms to send messages in all channels`}
+         {name: `No mute role found`, value: `Please set a role to be the muted role with /setmuterole <role> :)`}
        )
-        if(!muterole) 
-         return message.channel.send(nomuteroleembed)
-      
 
-    
+      
+      
+          if(muterole === null){
+          return message.channel.send(nomuteroleembed)
+          }
 
 
         let RolePermsEmbed = new Discord.MessageEmbed()
@@ -50,6 +49,8 @@ async	execute(message, prefix) {
         
 
             
+        let member = message.mentions.members.first();
+        
         if (!member)
         return message.channel.send (mutevalidmemberembed)
         let userismodembed = new Discord.MessageEmbed()
@@ -63,9 +64,19 @@ async	execute(message, prefix) {
         if(member.hasPermission("KICK_MEMBERS"))
         return message.channel.send(userismodembed) 
 
+         let userismuted = new Discord.MessageEmbed()
+         .setColor('RED')
+        .setTitle(`${message.author.username}, Error`)
+        .addFields(
+          {name:`Can not mute this user`, value: `Cant mute someone who's already muted`}
+        )
+        if(message.member.roles.cache.some(r=>["Muted"].includes(r.name))) {
+       return message.channel.send(userismuted)
+        }
         let time = args[2];
         let reason = args.slice(3).join(' ');
         let mutes = db.get(`mutes_${message.guild.id}_${member.user.id}`)
+
         let nomutereasonembed = new Discord.MessageEmbed()
         .setColor('RED')
         .setTitle(`${message.author.username} ERROR`)
@@ -88,13 +99,10 @@ async	execute(message, prefix) {
            
         return message.channel.send (nomutereasonembed)
         
-
-
+   
         if(mutes === null){
           db.set(`mutes_${message.guild.id}_${member.user.id}`, 1 )
-
 member.roles.add(muterole).catch(error => message.reply(`Sorry ${message.author}: ${error}`));
-         
 
         
         let muteembed = new Discord.MessageEmbed()
@@ -127,14 +135,13 @@ member.roles.add(muterole).catch(error => message.reply(`Sorry ${message.author}
          .setTitle(`You have been unmuted in ${message.guild.name}, you may now talk`)
      
               
-         member.user.send(MuteDMembed).catch(e => {message.reply(`There was an error: ${e}`)})
+         member.user.send(unmutedembed).catch(e => {message.channel.send(`Couldn't send unmute embed to ${member.user.username}: ${e}`)})
        
       }, ms(time));
     
         }
     if(mutes !== null){
       db.add(`mutes_${message.guild.id}_${member.user.id}`, 1)
-      
       member.roles.add(muterole).catch(error => message.reply(`Sorry ${message.author}: ${error}`));
          
     
@@ -172,16 +179,18 @@ member.roles.add(muterole).catch(error => message.reply(`Sorry ${message.author}
         member.roles.remove(muterole);
        let unmutedembed = new Discord.MessageEmbed()
        .setTitle(`You have been unmuted in ${message.guild.name}, you may now talk`)
-       
-       member.user.send(MuteDMembed).catch(e => {message.reply(`There was an error: ${e}`)})
+       member.user.send(unmutedembed).catch(e => {message.channel.send(`Couldn't send unmute embed to ${member.user.username}: ${e}`)})
 
       
  
     }, ms(time));
     
-
-
-
     }
-}
-}
+
+
+
+  }
+
+
+  }
+
