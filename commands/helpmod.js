@@ -19,7 +19,8 @@ let helpmodembed = new Discord.MessageEmbed()
          { name: `${prefix}Modlogs`, value: `Shows the amount of warns, mutes, kicks and bans a user has**USAGE** ${prefix}Modlogs <user>`},
          { name: `${prefix}Setbanappeal`, value: `Sets a ban appeal link that'll be sent when a user gets banned**USAGE** ${prefix}Setbanappeal <link>`},
          { name: `${prefix}Removeappeal`, value: `Removes an appeal link from the database **USAGE** ${prefix}Removeappeal`},
-         { name: `${prefix}Appeallink`, value: `Shows the appeal link set to the guild **USAGE** ${prefix}Appeallink`}
+         { name: `${prefix}Appeallink`, value: `Shows the appeal link set to the guild **USAGE** ${prefix}Appeallink`},
+         { name: `${prefix}Setmuterole`, value: `Sets a role that'll be given when a user is muted **USAGE** ${prefix}Setmuterole <@role>`}
          )
       
 message.channel.send(helpmodembed)
