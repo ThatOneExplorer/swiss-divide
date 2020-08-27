@@ -10,21 +10,26 @@ module.exports = {
 async	execute(message, prefix) {
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
   let muteroleid = await db.get(`muterole_${message.guild.id}`)
+  let nomuteroleembed = new Discord.MessageEmbed()
+  .setColor('RED')
+  .setTitle(`${message.author.username}, Error`)
+  .addFields(
+    {name: `No mute role found`, value: `Please set a role to be the muted role with /setmuterole <role> :)`}
+  )
+
+  if(muteroleid === null){
+    return message.channel.send(nomuteroleembed)
+    }
+
+
+
   const muterolename = muteroleid.name
   const muterole = message.guild.roles.cache.find(role => role.name === `${muterolename}`);
              
-      let nomuteroleembed = new Discord.MessageEmbed()
-       .setTitle(`${message.author.username}, Error`)
-       .addFields(
-         {name: `No mute role found`, value: `Please set a role to be the muted role with /setmuterole <role> :)`}
-       )
+      
 
       
       
-          if(muterole === null){
-          return message.channel.send(nomuteroleembed)
-          }
-
 
         let RolePermsEmbed = new Discord.MessageEmbed()
         .setColor('RED')

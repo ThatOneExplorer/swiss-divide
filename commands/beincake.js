@@ -28,12 +28,9 @@ let beancakeembed = new Discord.MessageEmbed()
 .setTitle(`${message.author.username} sent you a sexy beincake`)
 .setImage(`https://cdn.discordapp.com/attachments/735037492918747248/744975312911335554/0js7yr4lfyp11.png`)
 
-try {
-   member.user.send(beancakeembed)
-} catch (error) {
-    console.error(error);
-    message.reply(`${error}`);
-}
+
+   member.user.send(beancakeembed).catch(e => {message.channel.send(`Couldn't send unmute embed to ${member.user.username}: ${e}`)})
+
 
 
 let beancakesent = new Discord.MessageEmbed()
