@@ -1,7 +1,26 @@
+const db = require('quick.db')
+
 module.exports = {
     name: "cup",
     description: "a lovely video",
     execute(message){
+
+        let nsfwdisabled = db.get(`disablednsfw_${message.guild.id}`)
+
+        let nsfwdisabledembed = new Discord.MessageEmbed()
+        .setColor('RED')
+        .setTitle(`${message.author.username}, Error`)
+       .addFields(
+         {name: `This module is disabled`, value: `Do /enable <module> To re enable this module :)`}
+       )
+
+
+
+        if(nsfwdisabled !== null){
+         return message.channel.send(nsfwdisabledembed)
+        }
+
+
 
         if(!message.channel.nsfw) {
         return message.channel.send(`This can only be used in NSFW channels`)

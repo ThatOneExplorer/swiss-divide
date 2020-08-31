@@ -1,13 +1,25 @@
-
+const db = require('quick.db')
   const Discord = require('discord.js');
 module.exports = {
 	name: 'borks',
 	description: 'borks the user',
 	execute(message) {
- 
-   
-      
+    let fundisabled = db.get(`disabledfun_${message.guild.id}`)
     
+
+
+    let fundisabledembed = new Discord.MessageEmbed()
+    .setColor('RED')
+    .setTitle(`${message.author.username}, Error`)
+   .addFields(
+     {name: `This module is disabled`, value: `Do /enable <module> To re enable this module :)`}
+   )
+
+ if(fundisabled !== null){
+      return message.channel.send(fundisabledembed)
+ }
+
+
         
         let borkvalidmember = new Discord.MessageEmbed()
         .setColor('RED')

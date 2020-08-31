@@ -5,8 +5,17 @@ module.exports = {
         const db = require('quick.db')
         
         const args = (message.content.slice(prefix.length).trim().split(/ +/g))
+
+
       
         const Discord = require('discord.js');
+
+
+     
+     
+
+
+
         const ballmessage = args.slice(1).join(' ');
         const answers = [
         
@@ -19,7 +28,23 @@ module.exports = {
         ]
         
         const random = answers[Math.floor (Math.random() * answers.length) ]
-        
+
+
+     let fundisabled = db.get(`disabledfun_${message.guild.id}`)
+    
+
+
+        let fundisabledembed = new Discord.MessageEmbed()
+        .setColor('RED')
+        .setTitle(`${message.author.username}, Error`)
+       .addFields(
+         {name: `This module is disabled`, value: `Do /enable <module> To re enable this module :)`}
+       )
+
+     if(fundisabled !== null){
+          return message.channel.send(fundisabledembed)
+     }
+
         let noquestionembed = new Discord.MessageEmbed()
         .setColor('BLUE')
         .setTitle(`${message.author.tag}, please ask me a question`)

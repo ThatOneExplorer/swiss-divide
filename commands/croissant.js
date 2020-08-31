@@ -7,7 +7,23 @@ module.exports = {
     const db = require('quick.db')
    
         const Discord = require('discord.js');
-    
+        let fundisabled = db.get(`fundisabled_${message.guild.id}`)
+
+
+        let fundisabledembed= new Discord.MessageEmbed()
+        .setColor('RED')
+        .setTitle(`${message.author.username}, Error`)
+       .addFields(
+         {name: `This module is disabled`, value: `Do /enable <module> To re enable this module :)`}
+       )
+     if(fundisabled !== null) return message.channel.send(fundisabledembed)
+
+
+
+
+
+
+
   const croissants = [
 
   "https://cdn.discordapp.com/attachments/730523779972726794/739959575222026424/JPEG_20200713_101759.jpg",

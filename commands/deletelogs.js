@@ -9,6 +9,23 @@ module.exports = {
 
 async execute(message) {
 
+
+    let utilitydisabled = db.get(`disabledutility_${message.guild.id}`)
+
+     
+    let utilitydisabledembed = new Discord.MessageEmbed()
+    .setColor('RED')
+    .setTitle(`${message.author.username}, Error`)
+   .addFields(
+     {name: `This module is disabled`, value: `Do /enable <module> To re enable this module :)`}
+   )
+
+ if(utilitydisabled !== null){
+      return message.channel.send(utilitydisabledembed)
+       
+ }
+
+
 let RolePermsEmbed = new Discord.MessageEmbed()
 .setColor('RED')
 .setTitle(`${message.author.username}, Error`) 

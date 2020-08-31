@@ -10,6 +10,25 @@ module.exports = {
 async	execute(message, prefix) {
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
   let muteroleid = await db.get(`muterole_${message.guild.id}`)
+
+
+
+
+  let moddisabled = db.get(`moddisabled_${message.guild.id}`)
+
+
+  let moddisabledembed = new Discord.MessageEmbed()
+  .setColor('RED')
+  .setTitle(`${message.author.username}, Error`)
+ .addFields(
+   {name: `This module is disabled`, value: `Do /enable <module> To re enable this module :)`}
+ )
+if(moddisabled !== null) return message.channel.send(moddisabledembed)
+
+
+
+
+
   let nomuteroleembed = new Discord.MessageEmbed()
   .setColor('RED')
   .setTitle(`${message.author.username}, Error`)

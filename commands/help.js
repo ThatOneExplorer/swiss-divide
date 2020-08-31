@@ -10,6 +10,8 @@ module.exports = {
         const Discord = require('discord.js');
 
      
+
+        
 let helpembed = new Discord.MessageEmbed()
 .setColor('GREEN')
     .addFields(
@@ -19,7 +21,8 @@ let helpembed = new Discord.MessageEmbed()
          {name : `Need support?`, value: `Join the support server here https://discord.gg/wfQ37TM`}
       )
 
-message.channel.send(helpembed)
+return message.channel.send(helpembed)
+
 
     }
 }

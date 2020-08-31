@@ -10,6 +10,19 @@ async execute (message, prefix) {
     let member = message.mentions.members.first();
    
       
+    let moddisabled = db.get(`moddisabled_${message.guild.id}`)
+
+
+    let moddisabledembed = new Discord.MessageEmbed()
+    .setColor('RED')
+    .setTitle(`${message.author.username}, Error`)
+   .addFields(
+     {name: `This module is disabled`, value: `Do /enable <module> To re enable this module :)`}
+   )
+ if(moddisabled !== null) return message.channel.send(moddisabledembed)
+
+
+
     let RolePermsEmbed = new Discord.MessageEmbed()
     .setColor('RED')
     .setTitle(`${message.author.username}, Error`) 

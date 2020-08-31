@@ -6,6 +6,23 @@ module.exports = {
     description: 'shows what the current appeal link is',
     async execute(message){
     
+
+        let utilitydisabled = db.get(`disabledutility_${message.guild.id}`)
+
+     
+        let utilitydisabledembed = new Discord.MessageEmbed()
+        .setColor('RED')
+        .setTitle(`${message.author.username}, Error`)
+       .addFields(
+         {name: `This module is disabled`, value: `Do /enable <module> To re enable this module :)`}
+       )
+   
+     if(utilitydisabled !== null){
+          return message.channel.send(utilitydisabledembed)
+           
+     }
+
+
         let appeallink = db.get(`appeallink_${message.guild.id}`)
 
         let noappeallink = new Discord.MessageEmbed()

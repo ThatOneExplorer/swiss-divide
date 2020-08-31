@@ -1,8 +1,26 @@
+
+const db = require('quick.db')
 const MessageEmbed = require("discord.js").MessageEmbed
 module.exports = {
     name: "fact",
     description: "gets a random fact",
     async execute(message){
+
+      let fundisabled = db.get(`fundisabled_${message.guild.id}`)
+
+
+      let fundisabledembed= new Discord.MessageEmbed()
+      .setColor('RED')
+      .setTitle(`${message.author.username}, Error`)
+     .addFields(
+       {name: `This module is disabled`, value: `Do /enable <module> To re enable this module :)`}
+     )
+   if(fundisabled !== null) return message.channel.send(fundisabledembed)
+
+
+
+
+
         const getRandom = (array) => {
             return array[Math.floor(Math.random() * array.length)];
           }
