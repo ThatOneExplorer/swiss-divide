@@ -48,20 +48,20 @@ module.exports = {
             )
     
 
-            let bans = db.get(`bans_${message.guild.id}_${member.user.id}`)
-            
-            let kicks = db.get(`kicks_${message.guild.id}_${member.user.id}`)
-
-            
-            let mutes = db.get(`mutes_${message.guild.id}_${member.user.id}`)
-
-            
-            let warns = db.get(`warns_${message.guild.id}_${member.user.id}`)
+           
 
         if (!member)
         return message.channel.send (mutevalidmemberembed)
         
+        let bans = db.get(`bans_${message.guild.id}_${member.user.id}`)
+            
+        let kicks = db.get(`kicks_${message.guild.id}_${member.user.id}`)
 
+        
+        let mutes = db.get(`mutes_${message.guild.id}_${member.user.id}`)
+
+        
+        let warns = db.get(`warns_${message.guild.id}_${member.user.id}`)
       
 
     await db.delete(`bans_${message.guild.id}_${member.user.id}`)

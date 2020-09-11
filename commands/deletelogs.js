@@ -40,7 +40,7 @@ if(!message.member.hasPermission("KICK_MEMBERS"))
 return message.channel.send(RolePermsEmbed)
 
 
-let logchannel = db.get(`logchannel_${message.guild.id}`, message.channel.id)
+let logchannel = db.get(`logchannel_${message.guild.id}`)
 
 
 let nologembed = new Discord.MessageEmbed()

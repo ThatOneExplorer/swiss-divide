@@ -13,8 +13,11 @@ module.exports = async message  => {
      if(message === Discord.MessageEmbed) {
         return;
      }
+if(message.bulkDelete)
+      return;
 
-      
+      if(message.author.bot)return;
+
 
    let messagedeletedembed = new Discord.MessageEmbed()
    .setColor('ORANGE')
@@ -29,7 +32,7 @@ module.exports = async message  => {
    )
 .setTimestamp()
 const  LogChannel = await message.client.channels.fetch(logchannel);
-   LogChannel.send(messagedeletedembed)
-
+   LogChannel.send(messagedeletedembed).catch(e => {guildowner.send.send(`Couldn't log deleted message, please report this error by joining the support server  https://discord.gg/wfQ37TM: ${e}`)})
+ 
 
 }

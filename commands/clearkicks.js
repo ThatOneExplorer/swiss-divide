@@ -49,9 +49,11 @@ module.exports = {
             )
         
 
-            let kicks = db.get(`kicks_${message.guild.id}_${member.user.id}`)
+          
         if (!member)
         return message.channel.send (mutevalidmemberembed)
+
+        let kicks = db.get(`kicks_${message.guild.id}_${member.user.id}`)
         
         let userhasnologs = new Discord.MessageEmbed()
         .setTitle(`${message.author.username}`)

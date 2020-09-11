@@ -62,6 +62,23 @@ module.exports = {
             db.set(`disabledutility_${message.guild.id}`, true)
             return message.channel.send(moduledisabled)
           }
+
+          if(modulename ==`Logs`){
+           await db.delete (`logchannel_${message.guild.id}`)
+          return message.channel.send(moduledisabled)
         }
+
+
+        if(modulename===(`Welcome`)){
+          await db.delete(`welcomechannel_${message.guild.id}`)
+      
+        
+      
+          
+          return message.channel.send(moduledisabled)
+        }
+      
+      
+      }
     }
 

@@ -48,10 +48,11 @@ module.exports = {
             )
     
 
-            let bans = db.get(`bans_${message.guild.id}_${member.user.id}`)
         if (!member)
         return message.channel.send (mutevalidmemberembed)
         
+        let bans = db.get(`bans_${message.guild.id}_${member.user.id}`)
+
         let userhasnologs = new Discord.MessageEmbed()
         .setTitle(`${message.author.username}`)
         .addFields(

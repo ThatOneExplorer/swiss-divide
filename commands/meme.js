@@ -13,8 +13,8 @@ module.exports = {
 
       let fundisabledembed = new Discord.MessageEmbed()
       .setColor('RED')
-      .setTitle(`${message.author.username}, Error`)
-     .addFields(
+    
+        .addFields(
        {name: `This module is disabled`, value: `Do /enable <module> To re enable this module :)`}
      )
 

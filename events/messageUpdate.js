@@ -1,21 +1,21 @@
 const db = require('quick.db')
 const Discord = require('discord.js')
-const message = require('discord.js')
+
 module.exports = async (oldMessage, newMessage)  => {
 
     let logchannel = await db.get (`logchannel_${newMessage.guild.id}`)
     
                     
     
-    if(!logchannel) 
+    if(logchannel === null) 
      return;
      if (newMessage.author.bot) return;
     
+     if(!oldMessage)
+     return;
 
 
-    const LogChannel = await oldMessage.client.channels.fetch(logchannel);
 
-      try {
         let embed = new Discord.MessageEmbed()
           .setTitle(`Message Edited`)
           .setColor('ORANGE')
@@ -30,9 +30,7 @@ module.exports = async (oldMessage, newMessage)  => {
       
           const LogChannel = await oldMessage.client.channels.fetch(logchannel);
      
-        LogChannel.send(embed);
-      } catch (e) {}
-    };
-
+        LogChannel.send(embed).catch(e => {guildowner.user.send(`Couldn't log deleted message, please report this error by joining the support server  https://discord.gg/wfQ37TM: ${e}`)})
+          }
 
    

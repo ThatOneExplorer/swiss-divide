@@ -10,7 +10,7 @@ module.exports = {
   
         let member = message.mentions.members.first();
        
-        
+        let number = args[1]
        
 
         let moddisabled = db.get(`moddisabled_${message.guild.id}`)
@@ -47,9 +47,11 @@ module.exports = {
             )
         
 
-            let warnings = db.get(`warnings_${message.guild.id}_${member.user.id}`)
         if (!member)
         return message.channel.send (mutevalidmemberembed)
+        
+        
+        let warnings = db.get(`warnings_${message.guild.id}_${member.user.id}`)
         
         let userhasnologs = new Discord.MessageEmbed()
         .setTitle(`${message.author.username}`)
@@ -60,6 +62,8 @@ module.exports = {
         return message.channel.send(userhasnologs)
         }
 
+
+
     await  db.delete(`warnings_${message.guild.id}_${member.user.id}`)
     let clearedlogsembed = new Discord.MessageEmbed()
     .setTitle(`Succesfully cleared warn logs`)
@@ -69,4 +73,11 @@ module.exports = {
     )
     message.channel.send(clearedlogsembed)
         }
+
+  
+
+
+
+
+   
 }

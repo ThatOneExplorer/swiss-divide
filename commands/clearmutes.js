@@ -48,9 +48,10 @@ module.exports = {
             )
         
 
-            let mutes = db.get(`mutes_${message.guild.id}_${member.user.id}`)
         if (!member)
         return message.channel.send (mutevalidmemberembed)
+        
+        let mutes = db.get(`mutes_${message.guild.id}_${member.user.id}`)
         
         let userhasnologs = new Discord.MessageEmbed()
         .setTitle(`${message.author.username}`)

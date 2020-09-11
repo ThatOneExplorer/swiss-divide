@@ -1,6 +1,6 @@
 
 const db = require('quick.db')
-const MessageEmbed = require("discord.js").MessageEmbed
+const Discord = require("discord.js")
 module.exports = {
     name: "fact",
     description: "gets a random fact",
@@ -55,9 +55,10 @@ module.exports = {
             "In Nigeria's Yoruba culture, the second born twin is the elder twin. The first born twin (Taiwo) is kicked out of the womb by the second born twin (Kehinde) to 'test' the world. Kehinde knows it is safe once Taiwo starts crying.",
             'Nintendo pushed the term "videogame console" so people would stop calling competing products "Nintendos" and they wouldn\'t risk losing the valuable trademark.',
             "During the Glasgow Ice cream wars, rival ice cream truck drivers sold drugs from their trucks, shot at each other and committed arson throughout the 80's.",
-            "In social psychology, the pratfall effect is the tendency for attractiveness to increase or decrease after an individual makes a mistake, depending on the individual’s perceived ability to perform well in a general sense. A perceived able individual would be, on average, more likable after committing a blunder, while the opposite would occur if a perceived average person makes a mistake."
+            "In social psychology, the pratfall effect is the tendency for attractiveness to increase or decrease after an individual makes a mistake, depending on the individual’s perceived ability to perform well in a general sense. A perceived able individual would be, on average, more likable after committing a blunder, while the opposite would occur if a perceived average person makes a mistake.",
+            "Did you know, there was never a communist country? you might say USSR but that was actually Socialist! USSR means United Soviet Socialist States Republic, Communism is when its Stateless, clasless and moneyless, no country achieved this!"
         ];
-        const embed = new MessageEmbed()
+        const embed = new Discord.MessageEmbed()
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setTitle("Here is a random fact!")
         .setDescription(getRandom(factArray))
